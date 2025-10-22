@@ -7,13 +7,22 @@ import {
   signOut,
 } from "firebase/auth";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   console.log(auth?.currentUser?.email);
+
+  useEffect(() => {
+    alert(
+      `User status changed: ${auth?.currentUser?.email || "No user logged in"}`
+    );
+
+    const bgColor = auth?.currentUser ? "lightgreen" : "lightcoral";
+    document.body.style.backgroundColor = bgColor;
+  }, [auth?.currentUser]);
 
   async function handleLogin(e: FormEvent) {
     e.preventDefault();
